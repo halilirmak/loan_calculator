@@ -9,6 +9,9 @@ migrate: db-up
 	npx prisma migrate dev --name init
 	npx prisma generate
 
+docker-build: 
+	docker build -f docker/Dockerfile -t loan-calculator .
+
 db-down:
 	$(DC) down postgres
 
