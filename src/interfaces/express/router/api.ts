@@ -10,5 +10,11 @@ export const ApiRouter = (loanController: LoanController) => {
     loanController.apply.bind(loanController),
   );
 
+  router.post(
+    "/loan-application/:id",
+    requestValidator(loanController.getLoanByIdSchema),
+    loanController.getById.bind(loanController),
+  );
+
   return router;
 };

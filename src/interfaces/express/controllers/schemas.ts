@@ -7,3 +7,9 @@ export const LoanApplySchema = z.object({
     customerName: z.string(),
   }),
 });
+
+export const GetLoanByIdSchema = z.object({
+  params: z.object({
+    id: z.string().uuid(),
+  }),
+});

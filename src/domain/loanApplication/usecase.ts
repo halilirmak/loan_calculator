@@ -4,10 +4,13 @@ import { LoanApplication } from "./entities/LoanApplication";
 import { v4 as uuid } from "uuid";
 
 type calculateRepaymentProps = {
-  customerId: string;
   amount: string;
   termMonths: number;
   annualInterestRate: number;
+  customer: {
+    customerId: string;
+    customerName?: string;
+  };
 };
 
 type calculateRepaymentResult = calculateRepaymentProps & {
@@ -29,10 +32,12 @@ export class LoanUsecase implements ILoanUsecase {
 
     const loan = new LoanApplication({
       id: applicationId,
-      customerId: params.customerId,
       amount: new Money(params.amount),
       termMonths: params.termMonths,
       annualInterestRate: new AnnualInterestRate(params.annualInterestRate),
+      customer: {
+        customerId: params.customer.customerId,
+      },
     });
 
     const monthlyPayments = loan.calculateRepayment();

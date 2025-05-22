@@ -4,10 +4,14 @@ import { Money } from "../valueObjects/Money";
 
 interface LoanApplicationProps {
   id: string;
-  customerId: string;
   amount: Money;
   termMonths: number;
   annualInterestRate: AnnualInterestRate;
+  monthlyPayments?: string;
+  customer: {
+    customerId: string;
+    customerName?: string;
+  };
 }
 
 export class LoanApplication {
@@ -33,10 +37,14 @@ export class LoanApplication {
   toJSON() {
     return {
       id: this.params.id,
-      customerId: this.params.customerId,
       amount: this.params.amount.toString(),
       termMonths: this.params.termMonths,
       annualInterestRate: this.params.annualInterestRate.rate(),
+      monthlyPayments: this.params.monthlyPayments,
+      customer: {
+        customerId: this.params.customer.customerId,
+        customerName: this.params.customer.customerName,
+      },
     };
   }
 }

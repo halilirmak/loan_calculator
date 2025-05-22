@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ILoanApplicationService } from "~/application/services/LoanApplication";
-import { LoanApplySchema } from "./schemas";
+import { LoanApplySchema, GetLoanByIdSchema } from "./schemas";
 
 export class LoanController {
   constructor(private loanService: ILoanApplicationService) {}
@@ -8,7 +8,6 @@ export class LoanController {
   public applySchema = LoanApplySchema;
 
   async apply(req: Request, res: Response): Promise<void> {
-    console.log(req.body.customerName, req.body);
     const loanApplication = await this.loanService.apply({
       customerName: req.body.customerName,
       amount: req.body.amount,
@@ -16,6 +15,14 @@ export class LoanController {
     });
 
     res.json(loanApplication).status(201);
-    return;
+  }
+
+  public getLoanByIdSchema = GetLoanByIdSchema;
+  async getById(req: Request, res: Response): Promise<void> {
+    const loanApplication = await this.loanService.getLoanApplicationById(
+      req.params.id,
+    );
+
+    res.json(loanApplication).status(201);
   }
 }

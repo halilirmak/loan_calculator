@@ -1,13 +1,19 @@
 import { ILoanUsecase } from "../../domain/loanApplication/usecase";
 import { IIterestRateAPI } from "../../infra/apis/InterestRate";
-import { LoanApplyCommand, LoanApplyResponse } from "../commands/loan";
+import {
+  LoanApplyCommand,
+  LoanApplyResponse,
+  GetLoanByIdResponse,
+} from "../commands/loan";
 import {
   ILoanApplicationRepository,
   ICustomerRepository,
 } from "../../domain/loanApplication/repository";
+import { ProblemDetails } from "../../common/problemDetails";
 
 export interface ILoanApplicationService {
   apply(command: LoanApplyCommand): Promise<LoanApplyResponse>;
+  getLoanApplicationById(id: string): Promise<GetLoanByIdResponse>;
 }
 
 export class LoanApplicationService implements ILoanApplicationService {
@@ -25,7 +31,9 @@ export class LoanApplicationService implements ILoanApplicationService {
 
     const loan = this.usecase.calculateRepaymentAmount({
       annualInterestRate: rate,
-      customerId: user.id,
+      customer: {
+        customerId: user.id,
+      },
       ...command,
     });
 
@@ -41,5 +49,16 @@ export class LoanApplicationService implements ILoanApplicationService {
     return {
       loanId: application.id,
     };
+  }
+
+  async getLoanApplicationById(id: string) {
+    const application = await this.loanRepository.getLoanApplicationById(id);
+
+    if (!application)
+      throw ProblemDetails.notFoundError(
+        `no loan application found with id: ${id}`,
+      );
+
+    return application.toJSON();
   }
 }

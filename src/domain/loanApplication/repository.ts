@@ -11,6 +11,7 @@ export type LoanApplicationParams = {
 
 export interface ILoanApplicationRepository {
   create(params: LoanApplicationParams): Promise<{ id: string }>;
+  getLoanApplicationById(id: string): Promise<LoanApplication | null>;
 }
 
 export interface ICustomerRepository {
