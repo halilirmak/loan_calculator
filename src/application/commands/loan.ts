@@ -1,7 +1,7 @@
 export interface LoanApplyCommand {
-  customerId: string;
   amount: string;
   termMonths: number;
+  customerName: string;
 }
 
 export interface LoanApplyResponse {

@@ -10,7 +10,6 @@ export const requestValidator =
       if (!result.success) {
         throw ProblemDetails.invalidInputError(result.error.message);
       }
-      req.body = result.data;
     }
 
     next();

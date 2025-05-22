@@ -1,0 +1,27 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("APP_DATABASE_URL")
+}
+
+model Customer {
+  id              String            @id @default(uuid())
+  name            String
+  createdAt       DateTime          @default(now())
+  LoanApplication LoanApplication[]
+}
+
+model LoanApplication {
+  id                 String   @id @default(uuid())
+  amount             String
+  termMonths         Int
+  annualInterestRate Float
+  monthlyPayments    String
+  customerId         String
+  customer           Customer @relation(fields: [customerId], references: [id])
+  createdAt          DateTime @default(now())
+}

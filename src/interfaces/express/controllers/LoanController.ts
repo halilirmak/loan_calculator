@@ -8,8 +8,9 @@ export class LoanController {
   public applySchema = LoanApplySchema;
 
   async apply(req: Request, res: Response): Promise<void> {
+    console.log(req.body.customerName, req.body);
     const loanApplication = await this.loanService.apply({
-      customerId: req.body.customerId,
+      customerName: req.body.customerName,
       amount: req.body.amount,
       termMonths: req.body.termMonths,
     });

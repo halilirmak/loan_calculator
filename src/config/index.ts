@@ -1,7 +1,8 @@
 import * as dotenv from "dotenv";
-import DEVELOPMENT from "./env/dev";
 
 dotenv.config();
+
+import DEVELOPMENT from "./env/dev";
 
 export type Configuration = {
   NODE_ENV: string;
