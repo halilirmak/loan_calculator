@@ -87,7 +87,7 @@ Response:
 
 Unit tests have been implemented, but integration tests are not included due to time constraints. For integration testing, the Testcontainers package is recommended.
 
-- <https://testcontainers.com/?language=go>
+- <https://testcontainers.com/?language=nodejs>
 
 ### Running unit tests
 
