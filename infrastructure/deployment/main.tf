@@ -1,5 +1,5 @@
 data "aws_secretsmanager_secret_version" "db_secret" {
-  secret_id = "/app-secrets"
+  secret_id = "/app-secrets-${terraform.workspace}"
 }
 
 locals {

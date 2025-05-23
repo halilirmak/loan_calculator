@@ -1,3 +1,13 @@
+module "iam" {
+  source             = "../iam_role/"
+  name               = "${var.name}-beanstalk-role"
+  assume_role_policy = "../iam/policies/beanstalk_assume_role.json"
+  policies = templatefile("${path.module}../iam/policies/app_role.json", {
+    docker_image_url = var.docker_image_url
+  })
+  tags = var.tags
+}
+
 resource "aws_elastic_beanstalk_application" "this" {
   name        = var.app_name
   description = var.description

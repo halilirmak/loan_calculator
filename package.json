@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon",
     "build": "tsc",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +15,8 @@
     "@types/express": "^5.0.2",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.15.21",
-    "i": "^0.3.7",
+    "@vitest/coverage-v8": "^3.1.4",
+    "nodemon": "^3.1.10",
     "npm": "^11.4.1",
     "prisma": "^6.8.2",
     "ts-node": "^10.9.2",
